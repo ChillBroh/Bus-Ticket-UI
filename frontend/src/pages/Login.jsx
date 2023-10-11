@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Checkbox, Form, Input } from "antd";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { Ripple, initTE } from "tw-elements";
 
 const Login = () => {
+  useEffect(() => {
+    initTE({ Ripple });
+  });
+
   const onFinish = async (values) => {
     try {
       const res = await axios.post("http://localhost:5000/api/users/auth", {
@@ -87,14 +92,15 @@ const Login = () => {
 
               <Form.Item>
                 <div className="flex flex-col mt-5 mb-5">
-                  <Button
-                    htmlType="submit"
-                    className="login-form-button bg-blue-500 text-white hover:text-white"
+                  <button
+                    type="submit"
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                   >
-                    Log in
-                  </Button>
+                    Login
+                  </button>
                   <div className="whitespace-nowrap text-center">
-                    {" "}
                     Or <Link to={"/"}>register now!</Link>
                   </div>
                 </div>

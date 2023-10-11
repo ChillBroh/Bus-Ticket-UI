@@ -1,7 +1,13 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Add your source file paths here
-    "./public/index.html", // Include your HTML file
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/tw-elements/dist/js/**/*.js",
   ],
-  // ...other Tailwind CSS configuration
+  theme: {
+    extend: {},
+  },
+  darkMode: "class",
+  plugins: [require("tw-elements/dist/plugin.cjs")],
 };
