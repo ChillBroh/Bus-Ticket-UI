@@ -10,7 +10,7 @@ import Bus from "../pages/admin/Bus/Bus";
 const Router = () => {
   const ProtectedRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
-    const admin = user?.isAdmin === true;
+    const admin = user?.role === "Manager";
 
     if (!admin) {
       return <Navigate to="/login" />;
@@ -20,7 +20,14 @@ const Router = () => {
   return (
     <Routes>
       {/* admin Route */}
-      <Route path="/admin" element={<AdminHome />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminHome />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/bus" element={<Bus />} />
       {/* App routes*/}
       <Route path="/login" element={<Login />} />
