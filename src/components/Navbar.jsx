@@ -1,7 +1,12 @@
 import React from "react";
+import AdminNavbar from "./AdminNavBar";
 
 const Navbar = () => {
-  return <div>Navbar</div>;
+  return (
+    <div>
+      <AdminNavbar />
+    </div>
+  );
 };
 
 export default Navbar;

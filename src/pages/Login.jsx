@@ -1,112 +1,124 @@
-import React, { useEffect } from "react";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Checkbox, Form, Input } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+// import hero from "../assets/main/home.png";
+import { useContext } from "react";
+import { AuthContext } from "../context/authContext";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { Ripple, initTE } from "tw-elements";
+// import Loader from "../components/Loader";
+import { Form, Input } from "antd";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
 
 const Login = () => {
-  useEffect(() => {
-    initTE({ Ripple });
-  });
+  const navigate = useNavigate();
+
+  const { loading, error, dispatch } = useContext(AuthContext);
 
   const onFinish = async (values) => {
-    try {
-      const res = await axios.post("http://localhost:5000/api/users/auth", {
-        email: values.email,
-        password: values.password,
-      });
-      console.log(res);
-      alert("authorized");
-    } catch (err) {
-      alert("unauthorized");
-    }
+    // dispatch({ type: "LOGIN_START" });
+    // try {
+    //   const res = await axios.post("http://localhost:5000/api/auth/login", {
+    //     email: values.email,
+    //     password: values.password,
+    //   });
+    //   console.log(res.data);
+    //   dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+    //   if (res.data.isAdmin === true) {
+    //     navigate("/admin");
+    //   }
+    //   if (res.data.isAdmin === false) {
+    //     navigate("/");
+    //   }
+    // } catch (err) {
+    //   dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+    //   const res = err.response.status === 401;
+    //   if (res) {
+    //     Swal.fire({
+    //       icon: "error",
+    //       title: "Oops...",
+    //       text: "Invalid Email or Password",
+    //     });
+    //   }
+    // }
   };
 
   return (
-    <div>
-      <div className="mt-20 grid grid-cols-6">
-        <div className="col-span-2"></div>
-        <div className="col-span-2">
-          <div>
-            <Form
-              name="normal_login"
-              className="login-form"
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
-            >
+    <div className="grid lg:grid-cols-2 px-12 pt-10 lg:pt-0 lg:px-32 gap-10">
+      <div>
+        <img
+          className="rounded-3xl lg:h-[635px] h-full w-full object-cover"
+          // src={hero}
+          alt=""
+        />
+      </div>
+      <div className="flex justify-center items-center h-full">
+        <div>
+          <span className="text-[46px] font-extrabold text-[#9744BE]">
+            Login
+          </span>
+          <h2 className="pt-8 font-semibold">
+            Unlock a World of Visual Wellness
+          </h2>
+
+          <Form name="basic" onFinish={onFinish} autoComplete="off">
+            <div className="mt-4">
               <Form.Item
                 name="email"
                 rules={[
                   {
-                    type: "email",
-                    message: "The input is not valid E-mail!",
+                    required: true,
+                    message: "Please input your username!",
                   },
                   {
-                    required: true,
-                    message: "Please input your E-mail!",
+                    type: "email",
+                    message: "The input is not valid E-mail!",
                   },
                 ]}
                 hasFeedback
               >
                 <Input
                   prefix={<MailOutlined className="site-form-item-icon" />}
-                  type="email"
                   placeholder="email"
+                  className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                 />
               </Form.Item>
+            </div>
 
+            <div className="mt-2">
               <Form.Item
                 name="password"
                 rules={[
                   {
                     required: true,
-                    message: "Please input your Password!",
+                    message: "Please input your password!",
                   },
                 ]}
                 hasFeedback
               >
-                <Input
+                <Input.Password
                   prefix={<LockOutlined className="site-form-item-icon" />}
-                  type="password"
                   placeholder="Password"
+                  className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                 />
               </Form.Item>
-              <Form.Item
-                className="mb-4" // Apply a custom class to the Form.Item
-                name="remember"
-                valuePropName="checked"
-                noStyle
-              >
-                <div className="flex justify-between space-x-2">
-                  <Checkbox>Remember me</Checkbox>{" "}
-                  {/* Apply a custom class and Tailwind classes to Checkbox */}
-                  <Link to={"/"} className="text-gray-500 hover:text-blue-500">
-                    Forgot password
-                  </Link>{" "}
-                  {/* Apply Tailwind classes to Link */}
-                </div>
-              </Form.Item>
-
+            </div>
+            <div className="mt-2">
               <Form.Item>
-                <div className="flex flex-col mt-5 mb-5">
-                  <button
-                    type="submit"
-                    data-te-ripple-init
-                    data-te-ripple-color="light"
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                  >
-                    Login
-                  </button>
-                  <div className="whitespace-nowrap text-center">
-                    Or <Link to={"/"}>register now!</Link>
-                  </div>
-                </div>
+                <button
+                  type="submit"
+                  className="bg-[#9744BE] text-white font-bold px-6 py-3 rounded-md hover:bg-blue-800"
+                >
+                  Login
+                </button>
               </Form.Item>
-            </Form>
-          </div>
+            </div>
+            <div>
+              <Link to="/register" className="text-[#9744BE] hover:underline">
+                Not a member ? Register
+              </Link>
+            </div>
+          </Form>
+
+          {/* {loading && <Loader />} */}
         </div>
       </div>
     </div>
