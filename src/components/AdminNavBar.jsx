@@ -7,9 +7,10 @@ import { Menu, Transition } from "@headlessui/react";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import Swal from "sweetalert2";
+import logo from "../assets/logo.png";
 
 const AdminNavbar = () => {
-  const { user, loading, error, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
@@ -38,9 +39,10 @@ const AdminNavbar = () => {
   return (
     <nav className="flex justify-around w-full py-4 bg-gray-50 sticky top-0 z-[999]">
       <div className="flex items-center">
-        <h3 className="text-2xl font-extrabold text-[#9744BE]">EyeZen</h3>
+        <Link to="/">
+          <img src={logo} alt="Logo" className="w-48 h-auto" />
+        </Link>
       </div>
-
       {/* <!-- right header section --> */}
       <div className="items-center space-x-3 hidden md:flex">
         {user ? (
@@ -63,9 +65,9 @@ const AdminNavbar = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-[#333333] ring-opacity-5 focus:outline-none">
                   <div className="py-1">
-                    <h2 className="block px-4 py-2 text-sm text-[#41A4FF]">
+                    <h2 className="block px-4 py-2 text-sm text-[#9744BE]">
                       {user.name}
                     </h2>
                     <Menu.Item>
@@ -110,7 +112,7 @@ const AdminNavbar = () => {
             <>
               <Link
                 to="/login"
-                className="px-4 py-2 text-white font-bold bg-[#9744BE] text-center hover:bg-blue-500 cursor-pointer rounded-md"
+                className="px-4 py-2 text-white font-bold bg-[#9744BE] text-center hover:bg-[#7d5391] cursor-pointer rounded-md"
               >
                 Sign in
               </Link>

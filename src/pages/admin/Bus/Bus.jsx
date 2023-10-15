@@ -56,7 +56,7 @@ const Bus = () => {
 
           <div className="lg:w-full px-48 mb-10">
             <div className="flex justify-end mb-10">
-              <Link to={"/create-main-quiz"} className="items-end">
+              <Link to={"/add-bus"} className="items-end">
                 <Button
                   btnName="Add a Bus"
                   color="#9744BE"

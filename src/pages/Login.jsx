@@ -13,7 +13,7 @@ import jwt_decode from "jwt-decode";
 const Login = () => {
   const navigate = useNavigate();
 
-  const { loading, error, dispatch } = useContext(AuthContext);
+  const { loading, dispatch } = useContext(AuthContext);
 
   const onFinish = async (values) => {
     dispatch({ type: "LOGIN_START" });
@@ -24,8 +24,13 @@ const Login = () => {
       });
 
       const decoded = jwt_decode(res.data.token);
-
-      dispatch({ type: "LOGIN_SUCCESS", payload: decoded });
+      const originalToken = res.data.token;
+      const payload = {
+        decodedJWT: decoded,
+        originalToken: originalToken,
+      };
+      console.log(payload);
+      dispatch({ type: "LOGIN_SUCCESS", payload: payload });
       if (decoded.role === "Manager") {
         navigate("/admin");
       } else {
@@ -117,7 +122,7 @@ const Login = () => {
               <Form.Item>
                 <button
                   type="submit"
-                  className="bg-[#9744BE] text-white font-bold px-6 py-3 rounded-md hover:bg-blue-800"
+                  className="bg-[#9744BE] text-white font-bold px-6 py-3 rounded-md hover:bg-[#333333]"
                 >
                   Login
                 </button>
