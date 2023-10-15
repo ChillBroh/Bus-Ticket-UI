@@ -6,11 +6,13 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import AdminHome from "../pages/admin/AdminHome";
 import Bus from "../pages/admin/Bus/Bus";
+import AddBus from "../pages/admin/Bus/AddBus";
+import PaymentGateway from "../pages/PaymentGateway";
 
 const Router = () => {
   const ProtectedRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
-    const admin = user?.isAdmin === true;
+    const admin = user?.decodedJWT.role === "Manager";
 
     if (!admin) {
       return <Navigate to="/login" />;
@@ -20,11 +22,20 @@ const Router = () => {
   return (
     <Routes>
       {/* admin Route */}
-      <Route path="/admin" element={<AdminHome />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminHome />
+          </ProtectedRoute>
+        }
+      />
       <Route path="/bus" element={<Bus />} />
+      <Route path="/add-bus" element={<AddBus />} />
       {/* App routes*/}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/payment" element={<PaymentGateway />} />
     </Routes>
   );
 };

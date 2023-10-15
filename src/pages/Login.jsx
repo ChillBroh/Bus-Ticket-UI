@@ -1,52 +1,69 @@
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-// import hero from "../assets/main/home.png";
+import login from "../assets/user/login.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import axios from "axios";
-// import Loader from "../components/Loader";
+import Loader from "../components/Loader";
 import { Form, Input } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
+
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const { loading, error, dispatch } = useContext(AuthContext);
+  const { loading, dispatch } = useContext(AuthContext);
 
   const onFinish = async (values) => {
-    // dispatch({ type: "LOGIN_START" });
-    // try {
-    //   const res = await axios.post("http://localhost:5000/api/auth/login", {
-    //     email: values.email,
-    //     password: values.password,
-    //   });
-    //   console.log(res.data);
-    //   dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
-    //   if (res.data.isAdmin === true) {
-    //     navigate("/admin");
-    //   }
-    //   if (res.data.isAdmin === false) {
-    //     navigate("/");
-    //   }
-    // } catch (err) {
-    //   dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
-    //   const res = err.response.status === 401;
-    //   if (res) {
-    //     Swal.fire({
-    //       icon: "error",
-    //       title: "Oops...",
-    //       text: "Invalid Email or Password",
-    //     });
-    //   }
-    // }
+    dispatch({ type: "LOGIN_START" });
+    try {
+      const res = await axios.post("http://localhost:8090/user/login", {
+        email: values.email,
+        password: values.password,
+      });
+
+      const decoded = jwt_decode(res.data.token);
+      const originalToken = res.data.token;
+      const payload = {
+        decodedJWT: decoded,
+        originalToken: originalToken,
+      };
+      console.log(payload);
+      dispatch({ type: "LOGIN_SUCCESS", payload: payload });
+      if (decoded.role === "Manager") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+      const res = err.response.status === 401;
+      if (res) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Invalid Email or Password",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: err.message,
+        });
+      }
+    }
   };
+
+  const inputStyle =
+    "w-full p-3 rounded-md  border border-purple focus:outline-none focus:border-blue-500 ";
 
   return (
     <div className="grid lg:grid-cols-2 px-12 pt-10 lg:pt-0 lg:px-32 gap-10">
       <div>
         <img
           className="rounded-3xl lg:h-[635px] h-full w-full object-cover"
-          // src={hero}
+          src={login}
           alt=""
         />
       </div>
@@ -78,7 +95,7 @@ const Login = () => {
                 <Input
                   prefix={<MailOutlined className="site-form-item-icon" />}
                   placeholder="email"
-                  className="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                  className={inputStyle}
                 />
               </Form.Item>
             </div>
@@ -105,7 +122,7 @@ const Login = () => {
               <Form.Item>
                 <button
                   type="submit"
-                  className="bg-[#9744BE] text-white font-bold px-6 py-3 rounded-md hover:bg-blue-800"
+                  className="bg-[#9744BE] text-white font-bold px-6 py-3 rounded-md hover:bg-[#333333]"
                 >
                   Login
                 </button>
@@ -118,7 +135,7 @@ const Login = () => {
             </div>
           </Form>
 
-          {/* {loading && <Loader />} */}
+          {loading && <Loader />}
         </div>
       </div>
     </div>
