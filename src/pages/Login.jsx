@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import login from "../assets/user/login.jpg";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
-import axios from "axios";
+import AxiosInstance from "../api/axiosInstance";
 import Loader from "../components/Loader";
 import { Form, Input } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
@@ -18,7 +18,7 @@ const Login = () => {
   const onFinish = async (values) => {
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("http://localhost:8090/user/login", {
+      const res = await AxiosInstance.post("user/login", {
         email: values.email,
         password: values.password,
       });

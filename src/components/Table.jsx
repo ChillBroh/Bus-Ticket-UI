@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { initTE, Ripple } from "tw-elements";
@@ -12,7 +12,7 @@ const Table = (props) => {
 
   const handleDelete = async (id) => {
     const confirmResult = await Swal.fire({
-      title: "Are you sure you want to delete this Question?",
+      title: "Are you sure you want to delete this Bus?",
       text: "This action cannot be undone",
       icon: "warning",
       showCancelButton: true,
@@ -20,11 +20,11 @@ const Table = (props) => {
       cancelButtonText: "No, cancel",
       reverseButtons: true,
     });
-    //check the button confirmation
+
     if (confirmResult.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/api/mainQuiz/${id}`);
-        Swal.fire("Question Deleted!", "", "success");
+        await axiosInstance.delete(`bus/${id}`);
+        Swal.fire("Bus Deleted!", "", "success");
         props.onDelete(id);
       } catch (err) {
         console.log(err);
@@ -32,7 +32,7 @@ const Table = (props) => {
       }
     }
   };
-
+  const data = props.data;
   return (
     <div className="mx-auto max-w- px-4 lg:w-full sm:px-6   lg:px-8 mb-24">
       <div className="lg:w-full px-48 mb-10">
@@ -43,6 +43,7 @@ const Table = (props) => {
                 <table className="min-w-full text-center text-sm font-light">
                   <thead className="border-b bg-[#9744BE] font-medium dark:border-neutral-800 text-white">
                     <tr>
+                      <th scope="col" className=" px-6 py-4"></th>
                       <th scope="col" className=" px-6 py-4">
                         Bus Number
                       </th>
@@ -55,10 +56,13 @@ const Table = (props) => {
                       <th scope="col" className=" px-6 py-4">
                         Income
                       </th>
+                      <th scope="col" className=" px-6 py-4">
+                        Action
+                      </th>
                     </tr>
                   </thead>
-                  {props.data.map((value, index) => (
-                    <tbody key={value._id} className="hover:bg-gray-200">
+                  {data?.map((value, index) => (
+                    <tbody key={value.busNo} className="hover:bg-gray-200">
                       <tr className="border-b dark:border-neutral-500">
                         <td className="whitespace-wrap  px-6 py-4 font-medium">
                           {index + 1}
@@ -67,10 +71,14 @@ const Table = (props) => {
                           {value.busNo}
                         </td>
                         <td className="whitespace-wrap  px-6 py-4">
-                          {value.user}
+                          {value.user != null
+                            ? value.user.email
+                            : "No Inspector"}
                         </td>
                         <td className="whitespace-wrap  px-6 py-4">
-                          {value.route}
+                          {value.route != null
+                            ? value.route.routeName
+                            : "No Route"}
                         </td>
                         <td className="whitespace-wrap  px-6 py-4">
                           {value.income}
@@ -78,7 +86,7 @@ const Table = (props) => {
 
                         <td className="whitespace-wrap  px-6 py-4">
                           <div className="flex justify-center space-x-2">
-                            <Link to={`/update-main-quiz/${value._id}`}>
+                            <Link to={`/update-main-quiz/${value.busNo}`}>
                               <div>
                                 <button className="text-blue-500 hover:text-blue-700 transition duration-300 inline-block px-3 py-1 rounded-lg bg-blue-100 hover:bg-blue-200">
                                   update
