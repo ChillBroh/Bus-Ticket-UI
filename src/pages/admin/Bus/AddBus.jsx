@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosInstance";
 import { Form, Input, Select } from "antd";
 const { Option } = Select;
 const AddBus = () => {
   const navigate = useNavigate();
   const onFinish = async (values) => {
-    console.log(values);
     try {
       const result = await Swal.fire({
         title: "Do you want to add this bus?",
@@ -16,13 +15,12 @@ const AddBus = () => {
         denyButtonText: "No",
       });
       if (result.isConfirmed) {
-        const res = await axios.post("http://localhost:8090/bus", {
-          busNo: "WP-1000",
-          userEmail: "isuru@gmail.com",
-          routeName: "A1",
+        const res = await axiosInstance.post("bus", {
+          busNo: values.busNo,
+          userEmail: values.email,
+          routeName: values.route,
           income: 0.0,
         });
-        console.log("response", res);
         Swal.fire(
           "Congratulations! You Have Successfully added bus",
           "",
@@ -34,20 +32,11 @@ const AddBus = () => {
       }
     } catch (err) {
       console.log(err);
-      const res = err.response.statusText === "Conflict";
-      if (res) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "User Already exists",
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: err.message,
-        });
-      }
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.message,
+      });
     }
   };
 
@@ -96,7 +85,7 @@ const AddBus = () => {
             >
               <div className="pt-2">
                 <Form.Item
-                  name="BusNo"
+                  name="busNo"
                   rules={[
                     {
                       required: true,

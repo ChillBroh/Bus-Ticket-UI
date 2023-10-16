@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axiosInstance";
 import Table from "../../../components/Table";
 import Loader from "../../../components/Loader";
 import Button from "../../../components/Button";
@@ -14,9 +14,8 @@ const Bus = () => {
   useEffect(() => {
     const getAllData = async () => {
       try {
-        const response = await axios.get("http://localhost:8090/bus");
-        console.log(response);
-        setBuses(response.data);
+        const response = await axiosInstance.get("bus");
+        setBuses(response.data.body);
         setDeleted(false);
         setIsLoading(false);
       } catch (err) {
@@ -25,16 +24,16 @@ const Bus = () => {
       }
     };
     getAllData();
-    console.log("mounted");
   }, [deleted]);
 
   console.log(deleted);
 
-  const uniqueDisease = Array.from(new Set(buses.map((type) => type.disease)));
+  const routeBus = Array.from(new Set(buses.map((type) => type.busNo)));
+  console.log("route", routeBus);
 
-  const fillterdDisease = buses.filter((value) => {
-    return value.disease === disease;
-  });
+  // const fillterdDisease = buses.filter((value) => {
+  //   return value.disease === disease;
+  // });
 
   const handleDelete = (id) => {
     const ListafterDel = buses.filter((questio) => {
@@ -51,7 +50,7 @@ const Bus = () => {
       ) : (
         <div>
           <div className="lg:flex lg:justify-center  items-center space-x-4 xs:grid xs:grid-rows-2 sm:grid sm:grid-cols-2  mt-10">
-            <p className="text-center text-5xl font-bold ">Add a Bus</p>
+            <p className="text-center text-5xl font-bold ">All Buses</p>
           </div>
 
           <div className="lg:w-full px-48 mb-10">
@@ -69,16 +68,17 @@ const Bus = () => {
               className="w-full bg-gray-200 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#9744BE]"
             >
               <option value="All Types">All Types</option>
-              {uniqueDisease.map((disease, index) => (
+              {/* {routeBus.map((disease, index) => (
                 <option key={index} value={disease}>
                   {disease}
                 </option>
-              ))}
+              ))} */}
             </select>
           </div>
 
           <Table
-            data={disease === "All Types" ? buses : fillterdDisease}
+            // data={disease === "All Types" ? buses : fillterdDisease}
+            data={buses}
             onDelete={handleDelete}
           />
         </div>

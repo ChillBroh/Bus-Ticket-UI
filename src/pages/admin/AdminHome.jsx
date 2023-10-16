@@ -4,10 +4,8 @@ import Admin from "../../assets/admin/adminprofile.jpg";
 import { AuthContext } from "../../context/authContext";
 
 const AdminHome = () => {
-  //   const { user } = useContext(AuthContext);
-  const user = {
-    name: "Ishara Madusanka",
-  };
+  const { user } = useContext(AuthContext);
+  console.log(user.decodedJWT.sub);
   return (
     <div>
       <div className="grid lg:grid-cols-2 px-12 pt-10 lg:pt-0 lg:px-32 gap-10">
@@ -19,7 +17,9 @@ const AdminHome = () => {
                 Admin
               </span>
             </div>
-            <h2 className="pt-8 text-2xl font-semibold">{user.name}</h2>
+            <h2 className="pt-8 text-2xl font-semibold">
+              {user.decodedJWT.sub}
+            </h2>
             <div className="pt-10">
               <Link
                 to="/admin"
@@ -48,7 +48,7 @@ const AdminHome = () => {
           to="/bus"
           className="bg-gray-200 hover:bg-[#9744BE] hover:text-white text-[#9744BE] font-bold py-10 rounded-lg text-center cursor-pointer"
         >
-          Registered Buses
+          Buses
         </Link>
         <Link
           to="/adminTVideoTutorialList"
@@ -69,19 +69,19 @@ const AdminHome = () => {
           to="/view-all-questions"
           className="bg-gray-200 hover:bg-[#9744BE] hover:text-white text-[#9744BE] font-bold py-10 rounded-lg text-center cursor-pointer"
         >
-          Transections
+          User Income Details
         </Link>
         <Link
           to="/infant_view_quiz"
           className="bg-gray-200 text-[#9744BE] hover:bg-[#9744BE] hover:text-white font-bold py-10 rounded-lg text-center cursor-pointer"
         >
-          Users
+          Bus Income Details
         </Link>
         <Link
           to="/add"
           className="bg-gray-200 text-[#9744BE] hover:bg-[#9744BE] hover:text-white font-bold py-10 rounded-lg text-center cursor-pointer"
         >
-          add
+          Users
         </Link>
       </div>
     </div>
