@@ -49,9 +49,10 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("user");
-    axios.post("http://localhost:5000/api/auth/logout").then(() => {
-      dispatch({ type: "LOGOUT" });
-    });
+    // axios.post("http://localhost:5000/api/auth/logout").then(() => {
+    //   dispatch({ type: "LOGOUT" });
+    // });
+    dispatch({ type: "LOGOUT" });
   };
 
   return (

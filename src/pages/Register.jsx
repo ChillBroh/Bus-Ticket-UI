@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Input, Select } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import register from "../assets/user/register.png";
-import AxiosInstance from "../api/axiosInstance";
+import axios from "axios";
 import Swal from "sweetalert2";
 
 const { Option } = Select;
@@ -20,7 +20,7 @@ const Register = () => {
         denyButtonText: "No",
       });
       if (result.isConfirmed) {
-        const res = await AxiosInstance.post("user/signup", {
+        const res = await axios.post("http://localhost:8090/user/signup", {
           name: values.name,
           contactNumber: values.contactNumber,
           email: values.email,
@@ -40,20 +40,20 @@ const Register = () => {
       }
     } catch (err) {
       console.log(err);
-      const res = err.response.statusText === "Conflict";
-      if (res) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "User Already exists",
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: err.message,
-        });
-      }
+      // const res = err.response.statusText === "Conflict";
+      // if (res) {
+      //   Swal.fire({
+      //     icon: "error",
+      //     title: "Oops...",
+      //     text: "User Already exists",
+      //   });
+      // } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: err.message,
+      });
+      // }
     }
   };
   const inputStyle =
