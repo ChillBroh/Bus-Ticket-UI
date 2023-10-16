@@ -9,6 +9,7 @@ import Bus from "../pages/admin/Bus/Bus";
 import AddBus from "../pages/admin/Bus/AddBus";
 import PaymentGateway from "../pages/PaymentGateway";
 import Balance from "../pages/Balance";
+import TopupAccountCreate from "../pages/TopupAccountCreate";
 
 const Router = () => {
   const ProtectedRoute = ({ children }) => {
@@ -37,6 +38,7 @@ const Router = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/payment" element={<PaymentGateway />} />
+      <Route path="/topup-account-create" element={<TopupAccountCreate />} />
       <Route path="/balance" element={<Balance />} />
     </Routes>
   );

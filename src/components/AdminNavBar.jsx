@@ -37,7 +37,7 @@ const AdminNavbar = () => {
   }
 
   return (
-    <nav className="flex justify-around w-full py-4 bg-gray-50 sticky top-0 z-[999]">
+    <nav className="flex justify-around w-full py-4 bg-[#DCDCDC] sticky top-0 z-[999]">
       <div className="flex items-center">
         <Link to="/">
           <img src={logo} alt="Logo" className="w-48 h-auto" />
