@@ -10,6 +10,7 @@ import AddBus from "../pages/admin/Bus/AddBus";
 import PaymentGateway from "../pages/PaymentGateway";
 import Balance from "../pages/Balance";
 import TopupAccountCreate from "../pages/TopupAccountCreate";
+import TopupAccountList from "../pages/TopupAccountList";
 
 const Router = () => {
   const ProtectedRoute = ({ children }) => {
@@ -37,9 +38,10 @@ const Router = () => {
       {/* App routes*/}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/payment" element={<PaymentGateway />} />
+      <Route path="/payment/:id" element={<PaymentGateway />} />
       <Route path="/topup-account-create" element={<TopupAccountCreate />} />
-      <Route path="/balance" element={<Balance />} />
+      <Route path="/topup-account-list" element={<TopupAccountList />} />
+      <Route path="/recharge/:id/:balance" element={<Balance />} />
     </Routes>
   );
 };
