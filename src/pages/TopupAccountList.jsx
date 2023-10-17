@@ -29,8 +29,9 @@ const TopupAccountList = () => {
     if (confirmResult.isConfirmed) {
       try {
         const res = await axiosInstance.delete("top-up-acc", {
-          data: { id: key },
+          id: key,
         });
+        console.log(res);
         Swal.fire("Account Deleted!", "", "success");
       } catch (err) {
         console.log(err);
@@ -42,6 +43,18 @@ const TopupAccountList = () => {
     <div>
       <div className="text-center text-5xl font-extrabold pt-10 pb-10">
         My Topup Acocunt List
+      </div>
+      <div className="mx-auto max-w- px-4 lg:w-full sm:px-6    lg:px-8 mb-4">
+        <Link to={"/topup-account-create"}>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              class="inline-block rounded bg-[#9744BE] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#7f5492] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#9763ae] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#9744BE] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+            >
+              Add a Topup Account
+            </button>
+          </div>
+        </Link>
       </div>
       <div className="mx-auto max-w- px-4 lg:w-full sm:px-6   lg:px-8 mb-24">
         <div className="lg:w-full px-48 mb-10">
@@ -80,9 +93,7 @@ const TopupAccountList = () => {
                             {value.balance}
                           </td>
                           <td className="whitespace-wrap  px-6 py-4">
-                            {value.childName
-                              ? value.childName
-                              : "This is a Personal Account"}
+                            {value.childName ? value.childName : "-"}
                           </td>
 
                           <td className="whitespace-wrap  px-6 py-4">
