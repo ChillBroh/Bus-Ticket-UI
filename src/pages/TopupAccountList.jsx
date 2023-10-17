@@ -66,7 +66,7 @@ const TopupAccountList = () => {
               <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                 <div className="overflow-hidden">
                   <table className="min-w-full text-center text-sm font-light">
-                    <thead className="border-b bg-[#9744BE] font-medium dark:border-neutral-800 text-white">
+                    <thead className="border-b bg-[#9744BE] font-medium dark:border-neutral-800 text-white text-2xl">
                       <tr>
                         <th scope="col" className=" px-6 py-4">
                           Account ID
@@ -88,7 +88,10 @@ const TopupAccountList = () => {
                     ) : (
                       <>
                         {data.map((value, index) => (
-                          <tbody key={value.id} className="hover:bg-gray-200">
+                          <tbody
+                            key={value.id}
+                            className="hover:bg-gray-200 text-xl"
+                          >
                             <tr className="border-b font-bold dark:border-neutral-500">
                               <td className="whitespace-wrap  px-6 py-4 font-medium">
                                 {value.id}
