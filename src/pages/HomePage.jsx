@@ -10,9 +10,9 @@ import {
 
 const HomePage = () => {
   return (
-    <div className="px-12 pt-10 lg:pt-0 lg:px-32 gap-10">
+    <div className="px-12 pt-10 lg:pt-0 lg:px-40 gap-10 grid justify-center">
       <div className="grid lg:grid-cols-2 ">
-        <div className="flex justify-center items-center h-full">
+        <div className="flex justify-end items-center h-full">
           <div>
             <h2 className="text-[56px] whitespace-nowrap font-extrabold text-[#9744BE]">
               Your Ticket
@@ -31,9 +31,9 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div>
+        <div className="flex justify-start ">
           <img
-            className="rounded-3xl lg:h-[635px] h-full w-full object-cover"
+            className="rounded-3xl w-[500px] h-auto object-cover"
             src={hero}
             alt="hero"
           />

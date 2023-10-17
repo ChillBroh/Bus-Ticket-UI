@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import profile from "../assets/profile.jpg";
 import axiosInstance from "../api/axiosInstance";
+import Loader from "../components/Loader";
 import {
   UserOutlined,
   MailOutlined,
@@ -15,16 +16,17 @@ import { Input } from "antd";
 const UserProfile = () => {
   const { user } = useContext(AuthContext);
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getUsers = async () => {
       const res = await axiosInstance.get("user/get-current-user");
       setData(res.data);
+      setLoading(false);
     };
     getUsers();
   }, []);
 
   const navigate = useNavigate();
-  console.log(data);
 
   const getUser = async () => {
     navigate("/updateProfile", { state: user });
@@ -50,49 +52,57 @@ const UserProfile = () => {
             <h3 className="text-blue-500">Blue</h3>
           </div>
         </div>
-        <div className="flex flex-col justify-center items-start gap-2 xl:ps-20 rounded-lg bg-white p-6">
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon mr-10" />}
-            value={data.name}
-            className="w-full text-xl p-3  rounded-lg "
-            readOnly
-          />
-          <Input
-            prefix={<MailOutlined className="site-form-item-icon mr-10" />}
-            value={data.email}
-            className="w-full text-xl p-3  rounded-lg "
-            readOnly
-          />
-          <Input
-            prefix={<PhoneOutlined className="site-form-item-icon mr-10" />}
-            value={data.contactNumber}
-            className="w-full text-xl p-3  rounded-lg "
-            readOnly
-          />
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <div className="flex flex-col justify-center items-start gap-2 xl:ps-20 rounded-lg bg-white p-6">
+              <Input
+                prefix={<UserOutlined className="site-form-item-icon mr-10" />}
+                value={data.name}
+                className="w-full text-xl p-3  rounded-lg "
+                readOnly
+              />
+              <Input
+                prefix={<MailOutlined className="site-form-item-icon mr-10" />}
+                value={data.email}
+                className="w-full text-xl p-3  rounded-lg "
+                readOnly
+              />
+              <Input
+                prefix={<PhoneOutlined className="site-form-item-icon mr-10" />}
+                value={data.contactNumber}
+                className="w-full text-xl p-3  rounded-lg "
+                readOnly
+              />
 
-          <Input
-            prefix={<IdcardOutlined className="site-form-item-icon mr-10" />}
-            value={data.role === "Foreigner" ? data.passportNo : data.nic}
-            className="w-full text-xl p-3  rounded-lg "
-            readOnly
-          />
+              <Input
+                prefix={
+                  <IdcardOutlined className="site-form-item-icon mr-10" />
+                }
+                value={data.role === "Foreigner" ? data.passportNo : data.nic}
+                className="w-full text-xl p-3  rounded-lg "
+                readOnly
+              />
 
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon mr-10" />}
-            value={data.role}
-            className="w-full text-xl p-3  rounded-lg "
-            readOnly
-          />
+              <Input
+                prefix={<UserOutlined className="site-form-item-icon mr-10" />}
+                value={data.role}
+                className="w-full text-xl p-3  rounded-lg "
+                readOnly
+              />
 
-          <div className="flex md:flex-row gap-5 md:mt-14">
-            <button
-              className="bg-[#9744BE] p-3 rounded-xl text-white font-bold"
-              onClick={getUser}
-            >
-              Update Profile
-            </button>
-          </div>
-        </div>
+              <div className="flex md:flex-row gap-5 md:mt-14">
+                <button
+                  className="bg-[#9744BE] p-3 rounded-xl text-white font-bold"
+                  onClick={getUser}
+                >
+                  Update Profile
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
