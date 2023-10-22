@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import axiosInstance from "../../../api/axiosInstance";
 import { Form, Input, Select } from "antd";
 const { Option } = Select;
 const AddBus = () => {
+  const [route, setRoute] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const getRoute = async () => {
+      const resRoute = await axiosInstance.get("route");
+      setRoute(resRoute.data.body);
+      setLoading(false);
+    };
+
+    getRoute();
+  }, []);
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
@@ -15,7 +27,7 @@ const AddBus = () => {
         denyButtonText: "No",
       });
       if (result.isConfirmed) {
-        const res = await axiosInstance.post("bus", {
+        await axiosInstance.post("bus", {
           busNo: values.busNo,
           userEmail: values.email,
           routeName: values.route,
@@ -102,8 +114,9 @@ const AddBus = () => {
               <div className="pt-2">
                 <Form.Item name="route" rules={[{ required: true }]}>
                   <Select placeholder="Select Bus Route" allowClear>
-                    <Option value="A1">A1</Option>
-                    <Option value="A2">A2</Option>
+                    {route?.map((value) => (
+                      <Option value={value.routeName}>{value.routeName}</Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </div>

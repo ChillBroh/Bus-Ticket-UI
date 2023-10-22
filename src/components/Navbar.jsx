@@ -44,22 +44,11 @@ const Navbar = () => {
         </Link>
       </div>
       {/* <!-- left header section --> */}
-      <div className="items-center hidden space-x-5 md:flex">
-        <Menu as="div" className="relative inline-block text-left">
-          <div>
-            <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2">
-              Home Page
-            </Menu.Button>
-          </div>
-        </Menu>
-        <Menu as="div" className="relative inline-block text-left">
-          <div>
-            <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2">
-              My Travel Details
-            </Menu.Button>
-          </div>
-        </Menu>
-        <Link to="/payment">Balance</Link>
+      <div className="items-center hidden space-x-5 md:flex gap-8">
+        <Link to={"/"}>Home Page</Link>
+        <Link to={"/topup-account-list"}>My Account List</Link>
+        <Link to="/transections">My Transections</Link>
+        <Link to="/schedules">Bus Schedules</Link>
       </div>
       {/* <!-- right header section --> */}
       <div className="items-center space-x-3 hidden md:flex">

@@ -15,6 +15,10 @@ import HomePage from "../pages/HomePage";
 import UserProfile from "../pages/UserProfile";
 import Schedules from "../pages/Schedules";
 import NotFound from "../pages/NotFound";
+import Schedule from "../pages/admin/schedule/Schedule";
+import AddSchedule from "../pages/admin/schedule/AddSchedule";
+import MyTransections from "../pages/MyTransections";
+import AllUserTransections from "../pages/admin/AllUserTransections";
 
 const Router = () => {
   const ProtectedRoute = ({ children }) => {
@@ -38,8 +42,46 @@ const Router = () => {
         }
       />
       <Route path="/" element={<HomePage />} />
-      <Route path="/bus" element={<Bus />} />
-      <Route path="/add-bus" element={<AddBus />} />
+      <Route
+        path="/bus"
+        element={
+          <ProtectedRoute>
+            <Bus />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-bus"
+        element={
+          <ProtectedRoute>
+            <AddBus />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/schedule-admin"
+        element={
+          <ProtectedRoute>
+            <Schedule />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-schedule"
+        element={
+          <ProtectedRoute>
+            <AddSchedule />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user-transections"
+        element={
+          <ProtectedRoute>
+            <AllUserTransections />
+          </ProtectedRoute>
+        }
+      />
       {/* App routes*/}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -49,6 +91,7 @@ const Router = () => {
       <Route path="/topup-account-list" element={<TopupAccountList />} />
       <Route path="/recharge/:id/:balance" element={<Balance />} />
       <Route path="/schedules" element={<Schedules />} />
+      <Route path="/transections" element={<MyTransections />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
