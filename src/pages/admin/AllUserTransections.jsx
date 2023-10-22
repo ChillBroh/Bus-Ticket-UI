@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Loader from "../components/Loader";
-import axiosInstance from "../api/axiosInstance";
-
-const Schedules = () => {
+import Loader from "../../components/Loader";
+import axiosInstance from "../../api/axiosInstance";
+const AllUserTransections = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
       const getSchedules = async () => {
-        const res = await axiosInstance.get("schedule");
+        const res = await axiosInstance.get("recharge");
         setData(res.data.body);
         setLoading(false);
       };
@@ -19,12 +18,10 @@ const Schedules = () => {
       setLoading(false);
     }
   }, []);
-  console.log(data);
-  const slicedData = data.slice(0, 10);
   return (
     <div className="mx-auto px-4 lg:w-full sm:px-6 lg:px-8 mb-10">
       <div className="text-center text-[#9744BE] text-3xl md:text-5xl font-extrabold pt-10 pb-10">
-        Bus Schedules
+        All Transection Details
       </div>
       <div className="mt-10">
         <div className="lg:w-full px-48 mb-10">
@@ -36,59 +33,66 @@ const Schedules = () => {
                     <thead className="border-b bg-[#9744BE] font-medium dark:border-neutral-800 text-white text-2xl mb-5">
                       <tr>
                         <th scope="col" className=" px-6 py-4">
-                          Bus Number
+                          Transection ID
                         </th>
                         <th scope="col" className=" px-6 py-4">
-                          Route
+                          Account ID
                         </th>
                         <th scope="col" className=" px-6 py-4">
-                          Start Point
+                          Date And Time
                         </th>
                         <th scope="col" className=" px-6 py-4">
-                          End Point
+                          Account Owner
                         </th>
                         <th scope="col" className=" px-6 py-4">
-                          Start Time
+                          Owner Type
                         </th>
                         <th scope="col" className=" px-6 py-4">
-                          End Time
+                          Account Type
                         </th>
                         <th scope="col" className=" px-6 py-4">
-                          Ticket Price
+                          Dependent Member Name
                         </th>
-                        <th scope="col" className=" px-6 py-4"></th>
+                        <th scope="col" className=" px-6 py-4">
+                          Recharged Amount
+                        </th>
                       </tr>
                     </thead>
                     {loading ? (
                       <Loader />
                     ) : (
                       <>
-                        {slicedData.map((value, index) => (
+                        {data.map((value, index) => (
                           <tbody
                             key={index}
                             className="hover:bg-gray-200 text-lg mt-5"
                           >
                             <tr className="border-b font-bold dark:border-neutral-500">
                               <td className="whitespace-wrap  px-6 py-4 font-medium">
-                                {value.bus ? value.bus.busNo : "-"}
+                                {value.id}
                               </td>
                               <td className="whitespace-wrap  px-6 py-4">
-                                {value.routeName.routeName}
+                                {value.topUpAcc.id}
                               </td>
                               <td className="whitespace-wrap  px-6 py-4">
-                                {value.routeName.startPoint}
+                                {value.date} {value.time}
                               </td>
                               <td className="whitespace-wrap  px-6 py-4">
-                                {value.routeName.endPoint}
+                                {value.topUpAcc.user.name}
                               </td>
                               <td className="whitespace-wrap  px-6 py-4">
-                                {value.startTime}
+                                {value.topUpAcc.user.role}
                               </td>
                               <td className="whitespace-wrap  px-6 py-4">
-                                {value.endTime}
+                                {value.topUpAcc.type}
                               </td>
                               <td className="whitespace-wrap  px-6 py-4">
-                                {value.routeName.ticketPrice}
+                                {value.topUpAcc.childName
+                                  ? value.topUpAcc.childName
+                                  : "-"}
+                              </td>
+                              <td className="whitespace-wrap text-green-600 px-6 py-4">
+                                {value.amount}
                               </td>
                             </tr>
                           </tbody>
@@ -106,4 +110,4 @@ const Schedules = () => {
   );
 };
 
-export default Schedules;
+export default AllUserTransections;

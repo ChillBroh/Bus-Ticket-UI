@@ -51,7 +51,7 @@ const AdminHome = () => {
           Buses
         </Link>
         <Link
-          to="/adminTVideoTutorialList"
+          to="/schedule-admin"
           className="bg-gray-200 text-[#9744BE] hover:bg-[#9744BE] hover:text-white font-bold py-10 rounded-lg text-center cursor-pointer"
         >
           Bus Schedules
@@ -66,10 +66,10 @@ const AdminHome = () => {
       <div className="grid lg:grid-cols-3 lg:gap-4 gap-3 lg:mt-5 mt-4 lg:px-24 px-12 pb-28">
         {/* Button Cards */}
         <Link
-          to="/view-all-questions"
+          to="/user-transections"
           className="bg-gray-200 hover:bg-[#9744BE] hover:text-white text-[#9744BE] font-bold py-10 rounded-lg text-center cursor-pointer"
         >
-          User Income Details
+          User Recharge Details
         </Link>
         <Link
           to="/infant_view_quiz"
