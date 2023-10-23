@@ -57,7 +57,7 @@ const AdminHome = () => {
           Bus Schedules
         </Link>
         <Link
-          to="/adminDoctorList"
+          to="/add-route"
           className="bg-gray-200 text-[#9744BE] hover:bg-[#9744BE] hover:text-white font-bold py-10 rounded-lg text-center cursor-pointer"
         >
           Bus Routes

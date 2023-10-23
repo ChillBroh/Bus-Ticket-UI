@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 const Bus = () => {
   const [buses, setBuses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [disease, setDisease] = useState("All Types");
+  const [BusesFilter, setBusesFilter] = useState("All Types");
   const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const Bus = () => {
               </Link>
             </div>
             <select
-              onChange={(e) => setDisease(e.target.value)}
+              onChange={(e) => setBusesFilter(e.target.value)}
               className="w-full bg-gray-200 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#9744BE]"
             >
               <option value="All Types">All Types</option>

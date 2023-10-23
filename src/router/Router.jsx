@@ -19,6 +19,8 @@ import Schedule from "../pages/admin/schedule/Schedule";
 import AddSchedule from "../pages/admin/schedule/AddSchedule";
 import MyTransections from "../pages/MyTransections";
 import AllUserTransections from "../pages/admin/AllUserTransections";
+import AddBusRoute from "../pages/admin/AddBusRoute";
+import UpdateBus from "../pages/admin/Bus/UpdateBus";
 
 const Router = () => {
   const ProtectedRoute = ({ children }) => {
@@ -79,6 +81,22 @@ const Router = () => {
         element={
           <ProtectedRoute>
             <AllUserTransections />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-route"
+        element={
+          <ProtectedRoute>
+            <AddBusRoute />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/update-bus/:id"
+        element={
+          <ProtectedRoute>
+            <UpdateBus />
           </ProtectedRoute>
         }
       />
