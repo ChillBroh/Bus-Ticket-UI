@@ -91,7 +91,7 @@ const Table = (props) => {
 
                         <td className="whitespace-wrap  px-6 py-4 font-medium">
                           <div className="flex justify-center space-x-2">
-                            <Link to={`/update-main-quiz/${value.busNo}`}>
+                            <Link to={`/update-bus/${value.busNo}`}>
                               <div>
                                 <button className="text-blue-500 hover:text-blue-700 transition duration-300 inline-block px-3 py-1 rounded-lg bg-blue-100 hover:bg-blue-200">
                                   update

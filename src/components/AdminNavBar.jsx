@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import Swal from "sweetalert2";
 import logo from "../assets/logo.png";
+import admin from "../assets/admin/logo.png";
 
 const AdminNavbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -52,7 +53,7 @@ const AdminNavbar = () => {
               <div>
                 <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   {/* {user.name} */}
-                  <img class="h-8 w-8 rounded-full" src={user.img} alt=""></img>
+                  <img class="h-8 w-8 rounded-full" src={admin} alt=""></img>
                 </Menu.Button>
               </div>
 

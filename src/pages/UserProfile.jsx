@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 import profile from "../assets/profile.jpg";
@@ -17,6 +16,9 @@ const UserProfile = () => {
   const { user } = useContext(AuthContext);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
+  const [editMode, setEditMode] = useState(false);
+  const [editedData, setEditedData] = useState({}); // State to store edited data
+
   useEffect(() => {
     const getUsers = async () => {
       const res = await axiosInstance.get("user/get-current-user");
@@ -26,10 +28,29 @@ const UserProfile = () => {
     getUsers();
   }, []);
 
-  const navigate = useNavigate();
+  const getUser = () => {
+    setEditMode(true);
+  };
 
-  const getUser = async () => {
-    navigate("/updateProfile", { state: user });
+  const handleEdit = (key, value) => {
+    setEditedData({
+      ...editedData,
+      [key]: value,
+    });
+  };
+
+  const saveChanges = async () => {
+    console.log(editedData);
+    setEditMode(false);
+
+    try {
+      await axiosInstance.put("user/update-profile", editedData);
+      setEditMode(false);
+      setData({
+        ...data,
+        ...editedData,
+      });
+    } catch (error) {}
   };
 
   return (
@@ -43,14 +64,14 @@ const UserProfile = () => {
               alt=""
             />
           </div>
-          <div className="text-center mx-6 pt-3">
+          {/* <div className="text-center mx-6 pt-3">
             <h1 className="text-lg">Available Points</h1>
             <h3 className="text-blue-500">1500</h3>
           </div>
           <div className="text-center">
             <h1 className="text-lg">Account Status</h1>
             <h3 className="text-blue-500">Blue</h3>
-          </div>
+          </div> */}
         </div>
         {loading ? (
           <Loader />
@@ -59,46 +80,77 @@ const UserProfile = () => {
             <div className="flex flex-col justify-center items-start gap-2 xl:ps-20 rounded-lg bg-white p-6">
               <Input
                 prefix={<UserOutlined className="site-form-item-icon mr-10" />}
-                value={data.name}
-                className="w-full text-xl p-3  rounded-lg "
-                readOnly
+                value={editMode ? editedData.name || data.name : data.name}
+                onChange={(e) => handleEdit("name", e.target.value)}
+                className="w-full text-xl p-3  rounded-lg"
+                readOnly={!editMode}
               />
               <Input
                 prefix={<MailOutlined className="site-form-item-icon mr-10" />}
-                value={data.email}
-                className="w-full text-xl p-3  rounded-lg "
-                readOnly
+                value={editMode ? editedData.email || data.email : data.email}
+                onChange={(e) => handleEdit("email", e.target.value)}
+                className="w-full text-xl p-3  rounded-lg"
+                readOnly={!editMode}
               />
               <Input
                 prefix={<PhoneOutlined className="site-form-item-icon mr-10" />}
-                value={data.contactNumber}
-                className="w-full text-xl p-3  rounded-lg "
-                readOnly
+                value={
+                  editMode
+                    ? editedData.contactNumber || data.contactNumber
+                    : data.contactNumber
+                }
+                onChange={(e) => handleEdit("contactNumber", e.target.value)}
+                className="w-full text-xl p-3  rounded-lg"
+                readOnly={!editMode}
               />
 
               <Input
                 prefix={
                   <IdcardOutlined className="site-form-item-icon mr-10" />
                 }
-                value={data.role === "Foreigner" ? data.passportNo : data.nic}
-                className="w-full text-xl p-3  rounded-lg "
-                readOnly
+                value={
+                  editMode
+                    ? data.role === "Foreigner"
+                      ? editedData.passportNo || data.passportNo
+                      : editedData.nic || data.nic
+                    : data.role === "Foreigner"
+                    ? data.passportNo
+                    : data.nic
+                }
+                onChange={(e) =>
+                  handleEdit(
+                    data.role === "Foreigner" ? "passportNo" : "nic",
+                    e.target.value
+                  )
+                }
+                className="w-full text-xl p-3  rounded-lg"
+                readOnly={!editMode}
               />
 
               <Input
                 prefix={<UserOutlined className="site-form-item-icon mr-10" />}
-                value={data.role}
-                className="w-full text-xl p-3  rounded-lg "
-                readOnly
+                value={editMode ? editedData.role || data.role : data.role}
+                onChange={(e) => handleEdit("role", e.target.value)}
+                className="w-full text-xl p-3  rounded-lg"
+                readOnly={!editMode}
               />
 
               <div className="flex md:flex-row gap-5 md:mt-14">
-                <button
-                  className="bg-[#9744BE] p-3 rounded-xl text-white font-bold"
-                  onClick={getUser}
-                >
-                  Update Profile
-                </button>
+                {editMode ? (
+                  <button
+                    className="bg-[#9744BE] p-3 rounded-xl text-white font-bold"
+                    onClick={saveChanges}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    className="bg-[#9744BE] p-3 rounded-xl text-white font-bold"
+                    onClick={getUser}
+                  >
+                    Edit Profile
+                  </button>
+                )}
               </div>
             </div>
           </>

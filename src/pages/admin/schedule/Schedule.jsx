@@ -25,12 +25,8 @@ const Schedule = () => {
 
   const handleDelete = async (id) => {
     console.log(id);
-    const data = {
-      scheduleId: id,
-    };
-    console.log(data);
     const confirmResult = await Swal.fire({
-      title: "Are you sure you want to delete this Bus?",
+      title: "Are you sure you want to delete this Schedule?",
       text: "This action cannot be undone",
       icon: "warning",
       showCancelButton: true,
@@ -41,9 +37,11 @@ const Schedule = () => {
 
     if (confirmResult.isConfirmed) {
       try {
-        const res = await axiosInstance.delete("bus", { data: data });
+        const res = await axiosInstance.post("schedule/delete", {
+          scheduleId: id,
+        });
         console.log("res", res);
-        Swal.fire("Bus Deleted!", "", "success");
+        Swal.fire("Schedule Deleted!", "", "success");
       } catch (err) {
         console.log("err", err);
         Swal.fire(err.message, "", "error");

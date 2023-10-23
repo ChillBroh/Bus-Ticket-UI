@@ -62,7 +62,7 @@ const AllUserTransections = () => {
                       <Loader />
                     ) : (
                       <>
-                        {data.map((value, index) => (
+                        {data?.map((value, index) => (
                           <tbody
                             key={index}
                             className="hover:bg-gray-200 text-lg mt-5"
