@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# GoTicket-Mobile Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to GoTicket, a cutting-edge  app designed to enhance bus ticketing systems! This repository contains the source code for GoTicket-web applicaiton. Follow these simple steps to clone the project, install dependencies, and run.
 
-## Available Scripts
+## Deployment
+- **Backend:** Speingboot and MySql
 
-In the project directory, you can run:
+- **Backend repo:** Visit the backend git repository - [GoTicket Backend Repo](https://github.com/ChillBroh/GoTicket-API-SpringBoot)
 
-### `npm start`
+## Contributors
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+GoTicket is the result of collaborative efforts from a team of passionate individuals. Meet our contributors:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. **Isuru Madusanka** - Inspector part of the mobile app
+2. **Ishara Madusanka** - website of the app
+3. **Umesha Dilshani** - manager part and the backend of the app
+4. **Yasiru Deshan** - passenger part of the mobile app
 
-### `npm test`
+## Screenshots
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![IMG_8641](https://github.com/IsuruX98/GoTicket-Mobile/assets/104721314/98bc9494-427d-4d2a-902a-b7c403b22e3c)
 
-### `npm run build`
+![IMG_8642](https://github.com/IsuruX98/GoTicket-Mobile/assets/104721314/c00f9024-506d-4b40-8259-44de6df7672a)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Prerequisites
+Before you begin, ensure you have the following installed on your system:
 
-### `npm run eject`
+- Node.js: [Download and install Node.js](https://nodejs.org/)
+- Git: [Download and install Git](https://git-scm.com/)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Clone the Project:**
+   ```
+   git clone <repository-url>
+   cd EyeZen-Mobile
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Install Dependencies:**
+   ```
+   npm install
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
